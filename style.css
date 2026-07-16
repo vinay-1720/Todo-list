@@ -76,10 +76,19 @@ body{
     flex:1;
     height:40px;
     padding-left:10px;
-    width:82%;
+    width:75%;
 }
 .checked{
     text-decoration: line-through;
     opacity:0.6;
     color:grey;
+}
+#addbtn{
+    height:40px;
+    width:60px;
+    margin-left: 5px;
+}
+#savebtn{
+    margin-top: 15px;
+    background-color:green;
 }

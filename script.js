@@ -1,6 +1,8 @@
 let taskinput=document.getElementById("taskinput");
 let addbutton=document.getElementById("addbtn");
 let takelist=document.getElementById("takelist");
+let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
+let savebtn = document.getElementById("savebtn");
 
 function createandappendtask(todo){
     //list element
@@ -68,7 +70,21 @@ addbutton.onclick=function(){
         text:userinput
     };
 
+    todoList.push(newtodo)
     createandappendtask(newtodo);
     taskinput.value="";
 
 };
+
+savebtn.onclick=function(){
+    savetasks();
+}
+
+
+function savetasks(){
+    localStorage.setItem("todoList",JSON.stringify(todoList));
+}
+
+for (let todo of todoList){
+    createandappendtask(todo);
+}
