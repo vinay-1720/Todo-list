@@ -13,51 +13,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     <div class="todos-container">
         <h2 id="heading">Create Task</h2>
         <div class="input-section">
-            <input type="text" placeholder="Enter the task" class="input-section">
-            <button class="button">Add</button>
+                <input type="text" id="taskinput" placeholder="Enter task">
+                <button class="button" id="addbtn">Add</button>
         </div>
         <div>
             <h2 style="text-align:center" id="mytask">My Tasks</h2>
-            <ul class="task-list">
-                <li class="task">
-                    <input type="checkbox" class="checkbox">
-                    <div class="task-box">
-                        <span>Learn HTML</span>
-                    </div>
-                    <div class="delete-icon">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
-                </li>
-                                <li class="task">
-                    <input type="checkbox" class="checkbox">
-                    <div class="task-box">
-                        <span>Learn DSA</span>
-                    </div>
-                    <div class="delete-icon">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
-                </li>
-                                <li class="task">
-                    <input type="checkbox" class="checkbox">
-                    <div class="task-box">
-                        <span>Learn WEB DEVELOPMENT</span>
-                    </div>
-                    <div class="delete-icon">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
-                </li>
-                                <li class="task">
-                    <input type="checkbox" class="checkbox">
-                    <div class="task-box">
-                        <span>Learn MACHINE LEARNING</span>
-                    </div>
-                    <div class="delete-icon">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
-                </li>
+            <ul class="task-list" id="takelist">
             </ul>
         </div>
 
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

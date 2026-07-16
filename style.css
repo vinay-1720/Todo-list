@@ -63,3 +63,23 @@ body{
     width:20px;
     height:20px;
 }
+.delete-icon{
+    padding:10px;
+    cursor:pointer;
+}
+.input-container{
+    display:flex;
+    gap:10px;
+}
+
+#taskinput{
+    flex:1;
+    height:40px;
+    padding-left:10px;
+    width:82%;
+}
+.checked{
+    text-decoration: line-through;
+    opacity:0.6;
+    color:grey;
+}
