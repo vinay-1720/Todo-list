@@ -16,6 +16,7 @@ function createandappendtask(todo){
     checkbox.type="checkbox";
     checkbox.classList.add("checkbox");
 
+
     li.appendChild(checkbox);
 
     //task-box
@@ -26,14 +27,22 @@ function createandappendtask(todo){
     let span=document.createElement("span");
     span.id = "label" + todo.id;
     span.textContent=todo.text;
+    //restore old state
+    checkbox.checked=todo.ischecked;
+    if(todo.ischecked){
+        span.classList.add("checked");
+    }
 
     checkbox.onclick=function(){
+        todo.ischecked=checkbox.checked;
+
         if(checkbox.checked){
             span.classList.add("checked");
         }
         else{
             span.classList.remove("checked");
         }
+        savetasks();
     }
 
     
@@ -73,7 +82,7 @@ function deletetask(todoid){
 
 
 
-let todocount=0;
+
 addbutton.onclick=function(){
     let userinput=taskinput.value;
 
@@ -81,11 +90,12 @@ addbutton.onclick=function(){
         alert("Enter a task");
         return ;
     }
-    todocount=todocount+1;
+    
 
     let newtodo={
-        id:todocount,
-        text:userinput
+        id:Date.now(),
+        text:userinput,
+        ischecked:false
     };
 
     todoList.push(newtodo)
