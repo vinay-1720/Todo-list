@@ -53,7 +53,25 @@ function createandappendtask(todo){
 
     takelist.appendChild(li);
 
+    deleteicon.onclick=function(){
+        deletetask(li.id);
+    }
+
 }
+
+//delete tasks from local storage
+function deletetask(todoid){
+    let taskelement=document.getElementById(todoid);
+    takelist.removeChild(taskelement);
+    let deleteindex=todoList.findIndex(function(todo){
+        return "todo"+todo.id==todoid;
+    });
+    todoList.splice(deleteindex,1);
+    savetasks();
+}
+
+
+
 
 let todocount=0;
 addbutton.onclick=function(){
