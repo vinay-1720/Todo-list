@@ -1,8 +1,26 @@
 let taskinput=document.getElementById("taskinput");
 let addbutton=document.getElementById("addbtn");
 let takelist=document.getElementById("takelist");
-let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
+let todoList = [];
+
+let userId = localStorage.getItem("user_id");
 let savebtn = document.getElementById("savebtn");
+
+fetch(`http://127.0.0.1:8000/todos/${userId}`)
+.then(function(response){
+    return response.json();
+})
+.then(function(todos){
+    console.log(todos);
+
+    for(let todo of todos){
+        createandappendtask({
+            id:todo.id,
+            text:todo.task,
+            ischecked:todo.is_checked
+        });
+    }
+});
 
 function createandappendtask(todo){
     //list element
@@ -33,7 +51,7 @@ function createandappendtask(todo){
         span.classList.add("checked");
     }
 
-    checkbox.onclick=function(){
+    checkbox.onclick=await function(){
         todo.ischecked=checkbox.checked;
 
         if(checkbox.checked){
@@ -42,8 +60,20 @@ function createandappendtask(todo){
         else{
             span.classList.remove("checked");
         }
-        savetasks();
+        await fetch(
+            `http://127.0.0.1:8000/todo/${todo.id}`,
+            {
+                method:"PUT",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    is_checked:checkbox.checked
+                })
+            }
+        );
     }
+        
 
     
     taskbox.appendChild(span);
@@ -92,15 +122,30 @@ addbutton.onclick=function(){
     }
     
 
-    let newtodo={
-        id:Date.now(),
-        text:userinput,
-        ischecked:false
-    };
+    addbutton.onclick=async function(){
+        let userinput=taskinput.value;
 
-    todoList.push(newtodo)
-    createandappendtask(newtodo);
-    taskinput.value="";
+        if(userinput===""){
+            alert("Enter a task");
+            return ;
+        }
+        let response=await fetch(
+            "http://127.0.0.1:8000/addtodo",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    task:userinput,
+                    user_id:userId
+                })
+            }
+        );
+        if(response.ok){
+            location.reload();
+        }
+    }
 
 };
 
@@ -116,3 +161,5 @@ function savetasks(){
 for (let todo of todoList){
     createandappendtask(todo);
 }
+
+

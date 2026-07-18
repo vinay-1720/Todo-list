@@ -11,3 +11,6 @@ class UserLogin(BaseModel):
 class TodoCreate(BaseModel):
     task:str
     user_id:int
+
+class TodoUpdate(BaseModel):
+    is_checked:bool

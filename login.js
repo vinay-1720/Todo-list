@@ -24,7 +24,7 @@ loginbtn.onclick=async function(){
             "user_id",
             data.user_id
         );
-        window.location.href="index.html";
+        window.location.href="todo.html";
     }
     else{
         let data=await response.json();

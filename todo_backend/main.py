@@ -1,7 +1,7 @@
 from fastapi import FastAPI,HTTPException
 from database import engine,Base,SessionLocal
 from database_models import User,Todo
-from models import UserCreate,UserLogin,TodoCreate
+from models import UserCreate,UserLogin,TodoCreate,TodoUpdate
 
 app=FastAPI()
 Base.metadata.create_all(bind=engine)
@@ -79,3 +79,31 @@ def add_todo(todo:TodoCreate):
     db.commit()
 
     return {"message":"Todo Added"}
+
+@app.get("/todos/{user_id}")
+def get_todos(user_id:int):
+    db=SessionLocal()
+
+    todos=db.query(Todo).filter(
+        Todo.user_id==user_id
+    ).all()
+
+    return todos
+
+@app.put("/todo/{todo_id}")
+def update_todo(todo_id:int,todo_data:TodoUpdate):
+    db=SessionLocal()
+
+    todo=db.query(Todo).filter(
+        Todo.id==todo_id
+    ).first()
+
+    if not todo:
+        raise HTTPException(
+            status_code=404,
+            detail="Todo not Found"
+        )
+    todo.is_checked=todo_data.is_checked;
+    db.commit()
+
+    return {"message":"Todo Updated"}
