@@ -92,3 +92,44 @@ body{
     margin-top: 15px;
     background-color:green;
 }
+
+.login-container{
+    width:82%;
+    background-color:rgb(206, 216, 203);
+    height:100%;
+    margin:100px auto;
+    padding:20px;
+    border-radius:10px;
+    text-align: center;
+    color:rgb(15, 10, 10);
+    
+}
+.input-container{
+    margin:15px 0;
+
+}
+.input-container input{
+    
+    width:80%;
+    height:30px;
+    padding-left:10px;
+    
+    border-radius: 5px;
+    border-color: rgb(0, 0, 0);
+}
+#password{
+    margin-bottom: 30px;
+}
+.login-container h1{
+    margin-bottom: 50px;
+}
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+
+}
+.input-container h4{
+    text-align: left;
+    margin-left: 1px;
+}
