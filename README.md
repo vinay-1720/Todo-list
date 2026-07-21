@@ -1,63 +1,215 @@
-# Todo List App
+# Todo Application with Login & Signup
 
-A simple Todo List application built using HTML, CSS, and JavaScript.
+A full-stack Todo Application built using HTML, CSS, JavaScript, FastAPI, SQLAlchemy, and PostgreSQL.
 
 ## Features
 
-- Add new tasks
-- Mark tasks as completed
-- Delete tasks
-- Save tasks using Local Storage
-- Tasks remain available after page refresh
+- User Signup
+- User Login
+- User-specific Todo Lists
+- Add Tasks
+- Delete Tasks
+- Mark Tasks as Completed
+- Persistent Data Storage using PostgreSQL
+- FastAPI Backend APIs
+- Responsive Frontend
 
-## Technologies Used
+---
 
+## Tech Stack
+
+### Frontend
 - HTML
 - CSS
 - JavaScript
-- Local Storage API
-- Font Awesome Icons
+
+### Backend
+- FastAPI
+- SQLAlchemy
+- PostgreSQL
+- Uvicorn
+
+---
 
 ## Project Structure
 
-```
-TodoList/
+```text
+Todo_OWN/
 │
-├── index.html
+├── login.html
+├── signup.html
+├── todo.html
 ├── style.css
 ├── script.js
-└── README.md
+├── login.js
+├── signup.js
+│
+└── todo_backend/
+    ├── main.py
+    ├── models.py
+    ├── database.py
+    ├── database_models.py
+    └── myenv/
 ```
 
-## How It Works
+## Database Tables
 
-### Add Task
-- Enter a task in the input field.
-- Click the **Add** button.
-- The task is added to the task list.
+### Users Table
 
-### Complete Task
-- Click the checkbox beside a task.
-- The task text gets a line-through effect.
+| Column | Type |
+|----------|----------|
+| id | Integer |
+| username | String |
+| password | String |
 
-### Delete Task
-- Click the trash icon.
-- The task is removed from the page and Local Storage.
+### Todos Table
 
-### Save Tasks
-- Click the **Save** button.
-- All tasks are stored in Local Storage.
+| Column | Type |
+|----------|----------|
+| id | Integer |
+| task | String |
+| is_checked | Boolean |
+| user_id | Integer |
 
-### Persistent Storage
-- Tasks are loaded automatically from Local Storage when the page is refreshed.
+---
+
+## API Endpoints
+
+### Signup
+
+```http
+POST /signup
+```
+
+### Login
+
+```http
+POST /login
+```
+
+### Add Todo
+
+```http
+POST /addtodo
+```
+
+### Get User Todos
+
+```http
+GET /todos/{user_id}
+```
+
+### Update Todo Status
+
+```http
+PUT /todo/{todo_id}
+```
+
+### Delete Todo
+
+```http
+DELETE /todo/{todo_id}
+```
+
+---
+
+## Setup Instructions
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/Todo-list.git
+```
+
+### Move to Backend Folder
+
+```bash
+cd todo_backend
+```
+
+### Create Virtual Environment
+
+```bash
+py -m venv myenv
+```
+
+### Activate Virtual Environment
+
+```powershell
+.\myenv\Scripts\Activate.ps1
+```
+
+### Install Dependencies
+
+```bash
+pip install fastapi uvicorn sqlalchemy psycopg2-binary
+```
+
+### Run FastAPI Server
+
+```bash
+uvicorn main:app --reload
+```
+
+Server will run at:
+
+```text
+http://127.0.0.1:8000
+```
+
+Swagger Documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+## Application Flow
+
+```text
+Signup
+   ↓
+Login
+   ↓
+Store user_id in Local Storage
+   ↓
+Add Todos
+   ↓
+Save Todos in PostgreSQL
+   ↓
+Load Todos Based on Logged-in User
+```
+
+---
+
+## Learning Outcomes
+
+Through this project I learned:
+
+- Frontend and Backend Integration
+- REST API Development using FastAPI
+- SQLAlchemy ORM
+- PostgreSQL Database Operations
+- User Authentication Basics
+- CRUD Operations
+- Fetch API
+- Local Storage Usage
+- Full Stack Application Development
+
+---
 
 ## Future Improvements
 
-- Edit existing tasks
-- Save checkbox status
-- Add task categories
-- Add due dates
-- Dark mode support
+- Password Hashing using bcrypt
+- JWT Authentication
+- Logout Functionality
+- Edit Todo Feature
+- Dark Mode
+- Deploy using Render/Railway
+
+---
 
 ## Author
+
 Vinay Chary
