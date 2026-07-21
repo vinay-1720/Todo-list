@@ -11,16 +11,26 @@ fetch(`http://127.0.0.1:8000/todos/${userId}`)
     return response.json();
 })
 .then(function(todos){
-    console.log(todos);
-
     for(let todo of todos){
-        createandappendtask({
+        let newtodo={
             id:todo.id,
             text:todo.task,
             ischecked:todo.is_checked
-        });
+        };
+
+        todoList.push(newtodo);
+        createandappendtask(newtodo);
     }
+})
+.catch(function(error){
+    console.log(error);
 });
+
+
+
+
+
+
 
 function createandappendtask(todo){
     //list element
@@ -51,7 +61,7 @@ function createandappendtask(todo){
         span.classList.add("checked");
     }
 
-    checkbox.onclick=await function(){
+    checkbox.onclick=async function(){
         todo.ischecked=checkbox.checked;
 
         if(checkbox.checked){
@@ -99,30 +109,36 @@ function createandappendtask(todo){
 }
 
 //delete tasks from local storage
-function deletetask(todoid){
-    let taskelement=document.getElementById(todoid);
-    takelist.removeChild(taskelement);
-    let deleteindex=todoList.findIndex(function(todo){
-        return "todo"+todo.id==todoid;
-    });
-    todoList.splice(deleteindex,1);
-    savetasks();
+async function deletetask(todoid){
+
+    let realTodoId = todoid.replace("todo","");
+
+    let response = await fetch(
+        `http://127.0.0.1:8000/todo/${realTodoId}`,
+        {
+            method:"DELETE"
+        }
+    );
+
+    if(response.ok){
+
+        let taskelement=document.getElementById(todoid);
+        takelist.removeChild(taskelement);
+
+        let deleteindex=todoList.findIndex(function(todo){
+            return "todo"+todo.id==todoid;
+        });
+
+        todoList.splice(deleteindex,1);
+    }
 }
 
 
 
 
 
-addbutton.onclick=function(){
-    let userinput=taskinput.value;
 
-    if(userinput===""){
-        alert("Enter a task");
-        return ;
-    }
-    
-
-    addbutton.onclick=async function(){
+addbutton.onclick=async function(){
         let userinput=taskinput.value;
 
         if(userinput===""){
@@ -145,9 +161,7 @@ addbutton.onclick=function(){
         if(response.ok){
             location.reload();
         }
-    }
-
-};
+    };
 
 savebtn.onclick=function(){
     savetasks();

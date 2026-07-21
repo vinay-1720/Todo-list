@@ -107,3 +107,22 @@ def update_todo(todo_id:int,todo_data:TodoUpdate):
     db.commit()
 
     return {"message":"Todo Updated"}
+
+
+@app.delete("/todo/{todo_id}")
+def delete_todo(todo_id:int):
+    db=SessionLocal()
+
+    todo=db.query(Todo).filter(
+        Todo.id==todo_id
+    ).first()
+
+    if not todo:
+        raise HTTPException(
+            status_code=404,
+            detail="Todo not found"
+        )
+    db.delete(todo)
+    db.commit()
+
+    return {"message":"Todo deleted"}
